@@ -1,6 +1,5 @@
-<<<<<<< HEAD
-# LuckyBlog
-OpenCode
+# Hexo-Blog-Lucky
+## demo: luckyzmj.cn
 =======
 ### 前言
 
@@ -344,5 +343,3 @@ daovoice_app_id: XXXXX # 自行注册DaoVoice平台获取
 - [hexo-theme-matery作者教程](https://github.com/blinkfox/hexo-theme-matery/blob/develop/README_CN.md)
 - [Hexo+github搭建博客(超级详细版，精细入微)](https://yafine-blog.cn/posts/4ab2.html)
 - [hexo（matery）背景、滚动条优化+增加点击跳评论](https://blog.csdn.net/cungudafa/article/details/106278206)
-
->>>>>>> c18d38d... 第一次提交
