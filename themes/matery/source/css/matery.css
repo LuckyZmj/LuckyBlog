@@ -259,7 +259,7 @@ mark {
     position: fixed;
     bottom: 0;
     z-index: 300;
-    background: linear-gradient(to right, #bf30ac 0%, #0f9d58 100%);
+    background: linear-gradient(to right, #64b3f4 0%, #00ecbc 100%);
     opacity: 0.7;
 }
 

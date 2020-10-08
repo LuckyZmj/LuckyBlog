@@ -113,6 +113,12 @@ hexo init MyBlog
 
 #### 5. 安装LuckyBlog
 
+下载源代码到本地文件下
+
+```bash
+git clone https://github.com/LuckyZmj/LuckyBlog.git
+```
+
 将下载好的`LuckyBlog`全部复制到`MyBlog`目录下，如果复制过程中出现重复文件，点击替换。
 
 ![](https://cdn.jsdelivr.net/gh/LuckyZmj/imgbed/posts/20200911224935.png)
@@ -213,7 +219,7 @@ Lucky_Meの友链信息
 博客介绍: 知识面决定攻击面，知识链决定攻击深度！
 ```
 
-#### 4. 修改音乐列表
+#### 5. 修改音乐列表
 
 想要修改自己喜欢的音乐之前，需要先获取音乐列表的id。
 
@@ -267,7 +273,7 @@ musics:
   listMaxHeight: "525px" #列表最大高度
 ```
 
-#### 5. 绑定 Valine 评论
+#### 6. 绑定 Valine 评论
 
 编辑主题目录下的配置文件`MyBlog/themes/matery/_config.yml`，找到如下内容并修改
 
@@ -290,7 +296,7 @@ valine:
   comment_count: true # if false, comment count will only be displayed in post page, not in home page
 ```
 
-#### 6. 绑定 DaoVoice 在线聊天
+#### 7. 绑定 DaoVoice 在线聊天
 
 编辑主题目录下的配置文件`MyBlog/themes/matery/_config.yml`，找到如下内容并修改
 
@@ -300,13 +306,13 @@ daovoice: true
 daovoice_app_id: XXXXX # 自行注册DaoVoice平台获取
 ```
 
-#### 7. 快捷导航页面个性化
+#### 8. 快捷导航页面个性化
 
 编辑文件`MyBlog/source/tools/index.html`，以下简单标记出几处，还有其他涉及到博客信息的内容都需要改为你自己的博客信息即可。
 
 ![](https://cdn.jsdelivr.net/gh/LuckyZmj/imgbed/posts/20200916235833.png)
 
-#### 8. 添加友情链接
+#### 9. 添加友情链接
 
 编辑文件`MyBlog/suorce/_data/friends.json`，按如下格式添加友情
 
@@ -319,11 +325,11 @@ daovoice_app_id: XXXXX # 自行注册DaoVoice平台获取
         "url": "http://luckyzmj.cn",
         "title": "访问主页"
     },{
-	    "avatar": "https://sunhwee.com/hwsun.jpg",
-	    "name": "洪卫の博客",
-	    "introduction": "UESTC CVer",
-	    "url": "http://sunhwee.com",
-	    "title": "访问主页"
+      "avatar": "https://sunhwee.com/hwsun.jpg",
+      "name": "洪卫の博客",
+      "introduction": "UESTC CVer",
+      "url": "http://sunhwee.com",
+      "title": "访问主页"
     },{
         "avatar": "http://image.luokangyuan.com/1_qq_27922023.jpg",
         "name": "码酱",
@@ -331,6 +337,108 @@ daovoice_app_id: XXXXX # 自行注册DaoVoice平台获取
         "url": "http://luokangyuan.com/",
         "title": "前去学习"
     }
+]
+```
+
+#### 10. 添加相册
+
+比如你的图片上传图床后，链接地址如下
+
+```bash
+https://cdn.jsdelivr.net/gh/LuckyZmj/imgbed/galleries/璀璨星空/01.jpg
+https://cdn.jsdelivr.net/gh/LuckyZmj/imgbed/galleries/璀璨星空/02.jpg
+https://cdn.jsdelivr.net/gh/LuckyZmj/imgbed/galleries/动漫风景/01.jpg
+https://cdn.jsdelivr.net/gh/LuckyZmj/imgbed/galleries/动漫风景/02.jpg
+...
+```
+
+首先提取出图片链接公共的部分，作为图床地址
+
+```bash
+https://cdn.jsdelivr.net/gh/LuckyZmj/imgbed/galleries/
+```
+
+然后再提取图片地址中不同的部分，作为图片地址
+
+```bash
+璀璨星空/01.jpg
+璀璨星空/02.jpg
+动漫风景/01.jpg
+动漫风景/03.jpg
+...
+```
+
+>具体怎么分割根据你自己图床的链接格式而定，以上为我的github图床格式为例。
+
+将相册图床的地址改为你自己的图床地址，需要更改两处文件
+
+```bash
+# 例如我的图床地址为：
+https://cdn.jsdelivr.net/gh/LuckyZmj/imgbed/galleries/
+```
+
+themes/matery/layout/galleries.ejs
+
+![](https://cdn.jsdelivr.net/gh/LuckyZmj/imgbed/posts/20201008183019.png)
+
+themes/matery/layout/gallerie.ejs
+
+![](https://cdn.jsdelivr.net/gh/LuckyZmj/imgbed/posts/20201008183219.png)
+
+为每个相册添加链接地址，在根目录/source/List/galleries/下新建 相册名称 文件夹，并在该文件夹下新建 `index.md` 
+
+![](https://cdn.jsdelivr.net/gh/LuckyZmj/imgbed/posts/20201008183808.png)
+
+最后，在根目录/source/_data/galleries.json中添加图片链接，格式如下,
+
+```bash
+[
+  {
+    "name": "璀璨星空",
+    "cover": "璀璨星空/01.jpg",
+    "description": "璀璨星空",
+    "photos": [
+      "璀璨星空/01.jpg",
+      "璀璨星空/02.jpg",
+      "璀璨星空/03.jpg",
+      "璀璨星空/04.jpg",
+      "璀璨星空/05.jpg",
+      "璀璨星空/06.jpg",
+      "璀璨星空/07.jpg",
+      "璀璨星空/08.jpg",
+      "璀璨星空/09.jpg",
+      "璀璨星空/10.jpg",
+      "璀璨星空/11.jpg",
+      "璀璨星空/12.jpg",
+      "璀璨星空/13.jpg",
+      "璀璨星空/14.jpg",
+      "璀璨星空/15.jpg",
+      "璀璨星空/16.jpg"
+    ]
+  },
+  {
+    "name": "动漫风景",
+    "cover": "动漫风景/01.jpg",
+    "description": "动漫风景",
+    "photos": [
+      "动漫风景/01.jpg",
+      "动漫风景/02.jpg",
+      "动漫风景/03.jpg",
+      "动漫风景/04.jpg",
+      "动漫风景/05.jpg",
+      "动漫风景/06.jpg",
+      "动漫风景/07.jpg",
+      "动漫风景/08.jpg",
+      "动漫风景/09.jpg",
+      "动漫风景/10.jpg",
+      "动漫风景/11.jpg",
+      "动漫风景/12.jpg",
+      "动漫风景/13.jpg",
+      "动漫风景/14.jpg",
+      "动漫风景/15.jpg",
+      "动漫风景/16.jpg"
+    ]
+  }
 ]
 ```
 
