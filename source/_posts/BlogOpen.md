@@ -1,7 +1,24 @@
-## Hexo-Blog-Lucky
-### demo: www.luckyzmj.cn
-
-=======
+---
+title: LuckyBlog开源搭建教程
+author: luckyzmj
+coverImg: /medias/banner/7.jpg
+top: true
+cover: true
+toc: true
+mathjax: false
+summary: >-
+  之前在B站上发布了个人博客的视频，播放量也破千了，有网友私聊也想要搭建一个这样的博客。经过一段时间的准备，现将博客LuckyBlog的源代码公布出来，大家只需要根据以下的步骤，即可快速搭建一个漂亮且完善的博客。
+tags:
+  - hexo-blog-lucky
+  - 博客搭建教程
+categories:
+  - 博客篇
+abbrlink: d74d8b76
+reprintPolicy: cc_by
+date: 2020-09-17 00:00:00
+img: 
+password:
+---
 
 ### 前言
 

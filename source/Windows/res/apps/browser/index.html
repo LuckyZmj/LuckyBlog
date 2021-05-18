@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="../../../res/components/font-awesome-4.7.0/css/font-awesome.min.css" />
+    <script src="../../yl.app.js" ></script>
+    <script src="../../../res/components/vue.min.js" ></script>
+    <script src="../../../res/components/jquery-2.2.4.min.js" ></script>
+    <script src="../../../res/components/jquery.nicescroll.min.js" ></script>
+    <link rel="stylesheet" href="./index.css" />
+    <title>浏览器</title>
+</head>
+<body>
+<div id="app">
+    <div id="url-box">
+        <input @keyup.enter="visit()" id="url-ipt" spellcheck="false" autofocus v-model="url" />
+    </div>
+    <div id="btn-go" @click="visit()"><i class="fa fa-location-arrow fa-fw"></i></div>
+    <div class="clear"></div>
+    <ul id="history-box">
+       <li v-for="item in list">
+           <span class="left text-one-line"
+                 @click="visit(item.url)"
+                 :title="item.url">{{item.url}}</span>
+           <span class="right text-one-line">
+               {{new Date(item.date).format('MM-dd hh:mm')}}
+           </span>
+       </li>
+    </ul>
+</div>
+<script>
+    var storageName='yluiAppsBrowser';
+    function urlFormat(url) {
+        url=url.replace(/(^\s*)|(\s*$)/g, "");
+        var preg=/^(https?:\/\/|\.\.?\/|\/\/?)/i;
+        if(!preg.test(url)){
+            url='//'+url;
+        }
+        return url;
+    }
+
+    function jump(url) {
+//        url=urlFormat(url);
+        if(YLApp.id){
+            YLApp.eval('setWinData',{
+                url :url,
+                urlBar:url
+            })
+        }else{
+            try{
+                location.href=url;
+            }catch (e){
+                alert('不正确的地址')
+            }
+        }
+    }
+
+    var vue=new Vue({
+        el:"#app",
+        data:{
+            url:"",
+            list:[],
+        },
+        created:function () {
+            Date.prototype.format = function (fmt) { //author: meizz
+                if (!fmt) {
+                    fmt = 'yyyy-MM-dd hh:mm:ss';
+                }
+                var o = {
+                    "M+": this.getMonth() + 1, //月份
+                    "d+": this.getDate(), //日
+                    "h+": this.getHours(), //小时
+                    "m+": this.getMinutes(), //分
+                    "s+": this.getSeconds(), //秒
+                    "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+                    "S": this.getMilliseconds() //毫秒
+                };
+                if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+                for (var k in o)
+                    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+                return fmt;
+            };
+            if(localStorage[storageName]){
+                this.list=JSON.parse(localStorage[storageName]);
+            }
+            this.$nextTick(function () {
+                $("#history-box").niceScroll({
+                    cursorcolor: "#ffffff30",
+                    cursorwidth: "4px", // 滚动条的宽度，单位：便素
+                    cursorborder: "none", // CSS方式定义滚动条边框
+                    grabcursorenabled: false,
+                });
+            });
+
+        },
+        methods:{
+            save:function () {
+                localStorage[storageName]=JSON.stringify(this.list);
+            },
+            visit:function (url) {
+                url||(url=this.url);
+                if(!url) return;
+                url= urlFormat(url);
+                //查找是否已存在于列表
+                if(this.list.length>0){
+                    var found=false,foundIndex=null;
+                    this.list.forEach(function (t, n) {
+                        if(found){return}
+                        if(t.url===url){
+                            found=true;
+                            foundIndex=n;
+                        }
+                    });
+                    if(found){
+                        this.list.splice(foundIndex,1)
+                    }
+                }
+                this.list.unshift({
+                    url:url,
+                    date:Date.now()
+                });
+                if(this.list.length>50){
+                    this.list.pop();
+                }
+                this.save();
+                jump(url);
+            }
+        }
+    });
+</script>
+</body>
+</html>

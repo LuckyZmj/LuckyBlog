@@ -1,0 +1,55 @@
+<%- partial('_partial/bg-cover') %>
+
+<main class="content">
+    <div id="contact" class="container chip-container">
+        <div class="card">
+            <div class="card-content">
+                <div class="tag-title center-align">
+                    <i class="fas fa-comments"></i>&nbsp;&nbsp;<%= __('contact') %>
+                </div>
+<script>$.get("https://v1.hitokoto.cn?c=i&c=j&c=d&c=h",function(data,status){if(status=='success'){$('#poem').html(data.hitokoto);if(data.from_who!=null){$('#info').html(data.from_who+" · "+"《 "+data.from+" 》");}else{$('#info').html(data.from);}}else{$('#poem').html("获取出错啦");}});</script>
+    <!-- 加入网易云音乐热门评论，实时更新 -->
+    <div class="poem-wrap">
+        <div class="poem-border poem-left">
+        </div>
+        <div class="poem-border poem-right">
+        </div>
+        <h1>一言</h1>
+        <p id="poem"></p>
+        <p id="info"></p>
+    </div>
+                <%- page.content %>
+            </div>
+        </div>
+        <div class="card">
+            <% if (theme.gitalk && theme.gitalk.enable) { %>
+            <%- partial('_partial/gitalk') %>
+            <% } %>
+
+            <% if (theme.gitment.enable) { %>
+            <%- partial('_partial/gitment') %>
+            <% } %>
+
+            <% if (theme.disqus.enable) { %>
+            <%- partial('_partial/disqus') %>
+            <% } %>
+
+            <% if (theme.livere && theme.livere.enable) { %>
+            <%- partial('_partial/livere') %>
+            <% } %>
+
+            <% if (theme.valine && theme.valine.enable) { %>
+            <%- partial('_partial/valine') %>
+            <% } %>
+			
+			<% if (theme.minivaline && theme.minivaline.enable) { %>
+            <%- partial('_partial/minivaline') %>
+            <% } %>
+
+            <% if (theme.changyan && theme.changyan.enable) { %>
+                <%- partial('_partial/changyan') %>
+            <% } %>
+
+        </div>
+    </div>
+</main>
