@@ -1,9 +1,0 @@
-.DS_Store
-Thumbs.db
-db.json
-*.log
-public/
-.deploy*/
-.vscode/
-node_modules/
-.idea/
